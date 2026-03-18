@@ -10,7 +10,7 @@ const CONFIG = {
     logoURL: './logo.jpg',
     whatsappLink: 'https://chat.whatsapp.com/Lu8XeNEyMd43AorpEolXYc?mode=gi_t',
     discordLink: 'https://discord.gg/NS9TQbauXh',
-    tiktokLink: 'https://www.tiktok.com/'
+    tiktokLink: 'https://www.tiktok.com/@mieayamsmp'
 };
 
 // ===== DOM Elements =====
