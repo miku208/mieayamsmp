@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mieayamsmp - Shop & Ranks</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Shop Page Specific Styles */
+        .shop-header {
+            background: linear-gradient(135deg, #ff9933, #cc7a29);
+            padding: 4rem 0;
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 4px solid #ffaa33;
+            box-shadow: 0 0 30px rgba(255, 153, 51, 0.5);
+        }
+        
+        .shop-header h1 {
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 2px 2px 0 #cc7a29;
+            margin-bottom: 1rem;
+        }
+        
+        .shop-header p {
+            color: #fff;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .rank-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+        
+        .rank-card {
+            background: var(--bg-card);
+            border: 2px solid #ff9933;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: left;
+            position: relative;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .rank-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(255, 153, 51, 0.3);
+        }
+        
+        .rank-card.popular {
+            border: 4px solid #ffaa33;
+            transform: scale(1.02);
+        }
+        
+        .rank-card.popular::before {
+            content: "⭐ POPULAR ⭐";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffaa33;
+            color: #000;
+            padding: 5px 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        
+        .rank-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid rgba(255, 153, 51, 0.3);
+            padding-bottom: 1rem;
+        }
+        
+        .rank-icon {
+            font-size: 2.5rem;
+        }
+        
+        /* Rank Colors */
+        .rank-card[data-rank="baron"] .rank-icon { color: #3b82f6; } /* Blue */
+        .rank-card[data-rank="viscount"] .rank-icon { color: #a855f7; } /* Purple */
+        .rank-card[data-rank="duke"] .rank-icon { color: #22c55e; } /* Green */
+        .rank-card[data-rank="archduke"] .rank-icon { color: #eab308; } /* Yellow */
+        .rank-card[data-rank="emperor"] .rank-icon { color: #ef4444; } /* Red */
+        .rank-card[data-rank="eternal"] .rank-icon { color: #ec4899; } /* Pink */
+        .rank-card[data-rank="astral"] .rank-icon { color: #6366f1; } /* Indigo */
+        .rank-card[data-rank="antares"] .rank-icon { color: #f59e0b; } /* Amber */
+        .rank-card[data-rank="nightmare"] .rank-icon { color: #8b5cf6; } /* Violet */
+        
+        .rank-name {
+            font-size: 1.8rem;
+            font-family: var(--font-display);
+            font-weight: 700;
+            flex: 1;
+        }
+        
+        .rank-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ff9933;
+            margin: 0.5rem 0 1rem 0;
+            text-align: center;
+            background: rgba(255, 153, 51, 0.1);
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+        
+        .rank-price span {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        .rank-features {
+            list-style: none;
+            margin: 1.5rem 0;
+            flex: 1;
+        }
+        
+        .rank-features li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255, 153, 51, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .rank-features li i {
+            color: #ff9933;
+            width: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .feature-category {
+            margin-top: 1rem;
+            font-weight: bold;
+            color: #ff9933;
+            border-left: 3px solid #ff9933;
+            padding-left: 10px;
+        }
+        
+        .key-items {
+            background: rgba(255, 153, 51, 0.05);
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        
+        .key-items h4 {
+            color: #ff9933;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .key-items p {
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+        
+        .key-items span {
+            color: #ff9933;
+            font-weight: bold;
+        }
+        
+        .btn-shop {
+            background: #ff9933;
+            color: #000;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .btn-shop:hover {
+            background: #ffaa33;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #ff9933;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin: 2rem 0;
+            color: #ff9933;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .mie-icon {
+            font-size: 2rem;
+            margin-right: 10px;
+            filter: drop-shadow(0 0 10px #ff9933);
+        }
+        
+        .rank-divider {
+            text-align: center;
+            margin: 2rem 0;
+            color: #ff9933;
+            font-size: 1.2rem;
+            letter-spacing: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .rank-card.popular {
+                transform: scale(1);
+            }
+            
+            .rank-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Pixelated Background -->
+    <div class="pixel-bg"></div>
+    
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <img src="images/logo.png" alt="Server Logo" class="server-logo" id="serverLogo">
+                <span class="server-name">mieayamsmp</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#features">Fitur</a>
+                <a href="index.html#info">Server</a>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Shop Header -->
+    <div class="shop-header">
+        <div class="container">
+            <h1><span class="mie-icon">🍜</span> LIST RANK MIEAYAMSMP <span class="mie-icon">🍜</span></h1>
+            <p>Pilih rank sesuai kebutuhanmu! Klik tombol WA untuk membeli</p>
+        </div>
+    </div>
+
+    <!-- Ranks Section -->
+    <section class="container">
+        <div class="rank-divider">━━━━━━━━━━━━━━━━━━</div>
+        
+        <div class="rank-grid">
+            <!-- BARON (10K) - Blue -->
+            <div class="rank-card" data-rank="baron">
+                <div class="rank-header">
+                    <div class="rank-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h2 class="rank-name">BARON</h2>
+                </div>
+                <div class="rank-price">Rp 10.000</div>
+                
+                <ul class="rank-features">
+                    <li><i class="fas fa-check"></i> /sethome (5)</li>
+                    <li><i class="fas fa-check"></i> /back</li>
+                    <li><i class="fas fa-check"></i> /team create</li>
+                    <li><i class="fas fa-check"></i> /backpack (2 size)</li>
+                    <li><i class="fas fa-check"></i> /job (2)</li>
+                    <li><i class="fas fa-check"></i> Kit Baron</li>
+                    <li><i class="fas fa-check"></i> Money 100K</li>
+                    <li><i class="fas fa-check"></i> Limit Block Rp 10K</li>
+                    <li><i class="fas fa-check"></i> Limit Claim Rp 5</li>
+                </ul>
+                
+                <a href="https://wa.me/6285647516229?text=Saya%20ingin%20beli%20rank%20BARON%20(10K)" target="_blank" class="btn-shop">
+                    <i class="fab fa-whatsapp"></i> Beli via WA
+                </a>
+            </div>
+
+            <!-- VISCOUNT (25K) - Purple -->
+            <div class="rank-card" data-rank="viscount">
+                <div class="rank-header">
+                    <div class="rank-icon"><i class="fas fa-crown"></i></div>
+                    <h2 class="rank-name">VISCOUNT</h2>
+                </div>
+                <div class="rank-price">Rp 25.000</div>
+                
+                <ul class="rank-features">
+                    <li><i class="fas fa-check"></i> /sethome (10)</li>
+                    <li><i class="fas fa-check"></i> /fly</li>
+                    <li><i class="fas fa-check"></i> /pwarp create (2)</li>
+                    <li><i class="fas fa-check"></i> /anvil</li>
+                    <li><i class="fas fa-check"></i> /enderchest</li>
+                    <li><i class="fas fa-check"></i> /backpack (3 size)</li>
+                    <li><i class="fas fa-check"></i> /job (3)</li>
+                    <li><i class="fas fa-check"></i> Kit Viscount</li>
+                    <li><i class="fas fa-check"></i> Money 150K</li>
+                    <li><i class="fas fa-check"></i> Limit Block Rp 15K</li>
+                    <li><i class="fas fa-check"></i> Limit Claim Rp 7</li>
+                </ul>
+                
+                <a href="https://wa.me/6285647516229?text=Saya%20ingin%20beli%20rank%20VISCOUNT%20(25K)" target="_blank" class="btn-shop">
+                    <i class="fab fa-whatsapp"></i> Beli via WA
+                </a>
+            </div>
+
+            <!-- DUKE (40K) - Green -->
+            <div class="rank-card" data-rank="duke">
+                <div class="rank-header">
+                    <div class="rank-icon"><i class="fas fa-tree"></i></div>
+                    <h2 class="rank-name">DUKE</h2>
+                </div>
+                <div class="rank-price">Rp 40.000</div>
+                
+                <ul class="rank-features">
+                    <li><i class="fas fa-check"></i> /sethome (15)</li>
+                    <li><i class="fas fa-check"></i> /pwarp create (5)</li>
+                    <li><i class="fas fa-check"></i> /heal</li>
+                    <li><i class="fas fa-check"></i> /nick</li>
+                    <li><i class="fas fa-check"></i> /repair</li>
+                    <li><i class="fas fa-check"></i> /craft</li>
+                    <li><i class="fas fa-check"></i> /nv (nightvision)</li>
+                    <li><i class="fas fa-check"></i> /backpack (4 size)</li>
+                    <li><i class="fas fa-check"></i> Kit Duke</li>
+                    <li><i class="fas fa-check"></i> Money 500K</li>
+                    <li><i class="fas fa-check"></i> Limit Block Rp 25K</li>
+                    <li><i class="fas fa-check"></i> Limit Claim Rp 10</li>
+                </ul>
+                
+                <a href="https://wa.me/6285647516229?text=Saya%20ingin%20beli%20rank%20DUKE%20(40K)" target="_blank" class="btn-shop">
+                    <i class="fab fa-whatsapp"></i> Beli via WA
+                </a>
+            </div>
+
+            <!-- ARCHDUKE (60K) - Yellow (Popular) -->
+            <div class="rank-card popular" data-rank="archduke">
+                <div class="rank-header">
+                    <div class="rank-icon"><i class="fas fa-dragon"></i></div>
+                    <h2 class="rank-name">ARCHDUKE</h2>
+                </div>
+                <div class="rank-price">Rp 60.000</div>
+                
+                <ul class="rank-features">
+                    <li><i class="fas fa-check"></i> /sethome (25)</li>
+                    <li><i class="fas fa-check"></i> /pwarp create (10)</li>
+                    <li><i class="fas fa-check"></i> /backpack (5 size)</li>
+                    <li><i class="fas fa-check"></i> /tp</li>
+                    <li><i class="fas fa-check"></i> /kittycannon</li>
+                    <li><i class="fas fa-check"></i> /job (3)</li>
+                    <li><i class="fas fa-check"></i> Kit Archduke</li>
+                    <li><i class="fas fa-check"></i> Money 1M</li>
+                    <li><i class="fas fa-check"></i> Limit Block Rp 30K</li>
+                    <li><i class="fas fa-check"></i> Limit Claim Rp 13</li>
+                </ul>
+                
+                <div class="key-items">
+                    <h4><i class="fas fa-key"></i> Bonus Keys:</h4>
+                    <p>• Astral Key <span>(1)</span></p>
+                    <p>• Olympus Key <span>(3)</span></p>
+                    <p>• Legend Key <span>(5)</span></p>
+                </div>
+                
+                <a href="https://wa.me/6285647516229?text=Saya%20ingin%20beli%20rank%20ARCHDUKE%20(60K)" target="_blank" class="btn-shop">
+                    <i class="fab fa-whatsapp"></i> Beli via WA
+                </a>
+            </div>
+
+            <!-- EMPEROR (80K) - Red -->
+            <div class="rank-card" data-rank="emperor">
+                <div class="rank-header">
+                    <div class="rank-icon"><i class="fas fa-crown"></i></div>
+                    <h2 class="rank-name">EMPEROR</h2>
+                </div>
+                <div class="rank-price">Rp 80.000</div>
+                
+                <ul class="rank-features">
+                    <li><i class="fas fa-check"></i> /sethome (30)</li>
+                    <li><i class="fas fa-check"></i> /pwarp create (15)</li>
+                    <li><i class="fas fa-check"></i> /backpack (6 size)</li>
+                    <li><i class="fas fa-check"></i> /job (4)</li>
+                    <li><i class="fas fa-check"></i> /vault (1)</li>
+                    <li><i class="fas fa-check"></i> Kit Emperor</li>
+                    <li><i class="fas fa-check"></i> Money 5M</li>
+                    <li><i class="fas fa-check"></i> Limit Block Rp 40K</li>
+                    <li><i class="fas fa-check"></i> Limit Claim Rp 15</li>
+                </ul>
+                
+                <div class="key-items">
+                    <h4><i class="fas fa-key"></i> Bonus Keys:</h4>
+                    <p>• Astral Key <span>(3)</span></p>
+                    <p>• Olympus Key <span>(4)</span></p>
+                    <p>• Legend Key <span>(6)</span></p>
+                </div>
+                
+                <a href="https://wa.me/6285647516229?text=Saya%20ingin%20beli%20rank%20EMPEROR%20(80K)" target="_blank" class="btn-shop">
+                    <i class="fab fa-whatsapp"></i> Beli via WA
+                </a>
+            </div>
+
+            <!-- ETERNAL (125K) - Pink -->
+            <div class="rank-card" data-rank="eternal">
+                <div class="rank-header">
+                    <div class="rank-icon"><i class="fas fa-infinity"></i></div>
+                    <h2 class="rank-name">ETERNAL</h2>
+                </div>
+                <div class="rank-price">Rp 125.000</div>
+                
+                <ul class="rank-features">
+                    <li><i class="fas fa-check"></i> /sethome (40)</li>
+                    <li><i class="fas fa-check"></i> /pwarp create (20)</li>
+                    <li><i class="fas fa-check"></i> /vault (2)</li>
+                    <li><i class="fas fa-check"></i> /itemname</li>
+                    <li><i class="fas fa-check"></i> /hat</li>
+                    <li><i class="fas fa-check"></i> /tptoogle</li>
+                    <li><i class="fas fa-check"></i> Kit Eternal</li>
+                    <li><i class="fas fa-check"></i> Money 10M</li>
+                    <li><i class="fas fa-check"></i> Limit Block Rp 60K</li>
+                    <li><i class="fas fa-check"></i> Limit Claim Rp 20</li>
+                </ul>
+                
+                <div class="key-items">
+                    <h4><i class="fas fa-key"></i> Bonus Keys:</h4>
+                    <p>• Astral Key <span>(5)</span></p>
+                    <p>• Olympus Key <span>(8)</span></p>
+                    <p>• Legend Key <span>(10)</span></p>
+                </div>
+                
+                <a href="https://wa.me/6285647516229?text=Saya%20ingin%20beli%20rank%20ETERNAL%20(125K)" target="_blank" class="btn-shop">
+                    <i class="fab fa-whatsapp"></i> Beli via WA
+                </a>
+            </div>
+
+            <!-- ASTRAL (150K) - Indigo -->
+            <div class="rank-card" data-rank="astral">
+                <div class="rank-header">
+                    <div class="rank-icon"><i class="fas fa-cloud-moon"></i></div>
+                    <h2 class="rank-name">ASTRAL</h2>
+                </div>
+                <div class="rank-price">Rp 150.000</div>
+                
+                <ul class="rank-features">
+                    <li><i class="fas fa-check"></i> /sethome (45)</li>
+                    <li><i class="fas fa-check"></i> /pwarp create (25)</li>
+                    <li><i class="fas fa-check"></i> /tools</li>
+                    <li><i class="fas fa-check"></i> /vault (3)</li>
+                    <li><i class="fas fa-check"></i> /job (5)</li>
+                    <li><i class="fas fa-check"></i> /beezooka</li>
+                    <li><i class="fas fa-check"></i> Daily premium reward</li>
+                    <li><i class="fas fa-check"></i> Kit Astral</li>
+                    <li><i class="fas fa-check"></i> Money 20M</li>
+                    <li><i class="fas fa-check"></i> Limit Block Rp 70K</li>
+                    <li><i class="fas fa-check"></i> Limit Claim Rp 25</li>
+                </ul>
+                
+                <div class="key-items">
+                    <h4><i class="fas fa-key"></i> Bonus Keys:</h4>
+                    <p>• Astral Key <span>(7)</span></p>
+                    <p>• Olympus Key <span>(10)</span></p>
+                    <p>• Legend Key <span>(13)</span></p>
+                </div>
+                
+                <a href="https://wa.me/6285647516229?text=Saya%20ingin%20beli%20rank%20ASTRAL%20(150K)" target="_blank" class="btn-shop">
+                    <i class="fab fa-whatsapp"></i> Beli via WA
+                </a>
+            </div>
+
+            <!-- ANTARES (175K) - Amber -->
+            <div class="rank-card" data-rank="antares">
+                <div class="rank-header">
+                    <div class="rank-icon"><i class="fas fa-star"></i></div>
+                    <h2 class="rank-name">ANTARES</h2>
+                </div>
+                <div class="rank-price">Rp 175.000</div>
+                
+                <ul class="rank-features">
+                    <li><i class="fas fa-check"></i> /sethome (50)</li>
+                    <li><i class="fas fa-check"></i> /pwarp create (30)</li>
+                    <li><i class="fas fa-check"></i> /jobs (6)</li>
+                    <li><i class="fas fa-check"></i> /speed</li>
+                    <li><i class="fas fa-check"></i> /weather</li>
+                    <li><i class="fas fa-check"></i> /vault (4)</li>
+                    <li><i class="fas fa-check"></i> Kit Antares</li>
+                    <li><i class="fas fa-check"></i> Money 30M</li>
+                    <li><i class="fas fa-check"></i> Limit Block Rp 80K</li>
+                    <li><i class="fas fa-check"></i> Limit Claim Rp 30</li>
+                </ul>
+                
+                <div class="key-items">
+                    <h4><i class="fas fa-key"></i> Bonus Keys:</h4>
+                    <p>• Astral Key <span>(10)</span></p>
+                    <p>• Olympus Key <span>(12)</span></p>
+                    <p>• Legend Key <span>(15)</span></p>
+                </div>
+                
+                <a href="https://wa.me/6285647516229?text=Saya%20ingin%20beli%20rank%20ANTARES%20(175K)" target="_blank" class="btn-shop">
+                    <i class="fab fa-whatsapp"></i> Beli via WA
+                </a>
+            </div>
+
+            <!-- NIGHTMARE (200K) - Violet -->
+            <div class="rank-card" data-rank="nightmare">
+                <div class="rank-header">
+                    <div class="rank-icon"><i class="fas fa-skull"></i></div>
+                    <h2 class="rank-name">NIGHTMARE</h2>
+                </div>
+                <div class="rank-price">Rp 200.000</div>
+                
+                <ul class="rank-features">
+                    <li><i class="fas fa-check"></i> /sethome (50)</li>
+                    <li><i class="fas fa-check"></i> /pwarp create (35)</li>
+                    <li><i class="fas fa-check"></i> /job (7)</li>
+                    <li><i class="fas fa-check"></i> /godmode</li>
+                    <li><i class="fas fa-check"></i> /tphere</li>
+                    <li><i class="fas fa-check"></i> /day</li>
+                    <li><i class="fas fa-check"></i> /vault (5)</li>
+                    <li><i class="fas fa-check"></i> Kit Nightmare</li>
+                    <li><i class="fas fa-check"></i> Money 45M</li>
+                    <li><i class="fas fa-check"></i> Limit Block Rp 100K</li>
+                    <li><i class="fas fa-check"></i> Limit Claim Rp 45</li>
+                </ul>
+                
+                <div class="key-items">
+                    <h4><i class="fas fa-key"></i> Bonus Keys:</h4>
+                    <p>• Astral Key <span>(12)</span></p>
+                    <p>• Olympus Key <span>(18)</span></p>
+                    <p>• Legend Key <span>(20)</span></p>
+                </div>
+                
+                <a href="https://wa.me/6285647516229?text=Saya%20ingin%20beli%20rank%20NIGHTMARE%20(200K)" target="_blank" class="btn-shop">
+                    <i class="fab fa-whatsapp"></i> Beli via WA
+                </a>
+            </div>
+        </div>
+
+        <div class="rank-divider">━━━━━━━━━━━━━━━━━━</div>
+
+        <!-- Notes -->
+        <div style="background: var(--bg-card); padding: 2rem; border-radius: 8px; border: 1px solid #ff9933; margin: 2rem 0;">
+            <h3 style="color: #ff9933; margin-bottom: 1rem;"><i class="fas fa-info-circle"></i> Catatan Pembelian:</h3>
+            <ul style="color: var(--text-secondary); list-style: none;">
+                <li style="margin-bottom: 0.5rem;">• Klik tombol WhatsApp untuk melakukan pembelian</li>
+                <li style="margin-bottom: 0.5rem;">• Pembayaran via transfer bank / e-wallet</li>
+                <li style="margin-bottom: 0.5rem;">• Rank akan diaktivasi maksimal 1x24 jam setelah pembayaran</li>
+                <li style="margin-bottom: 0.5rem;">• Semua harga dalam Rupiah (IDR)</li>
+                <li>• Untuk pertanyaan lebih lanjut hubungi owner via WhatsApp</li>
+            </ul>
+        </div>
+
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/logo.png" alt="Server Logo" class="server-logo small">
+                    <span>mieayamsmp</span>
+                </div>
+                <p class="copyright">&copy; 2026 mieayamsmp.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

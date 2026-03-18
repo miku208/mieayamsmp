@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mieayamsmp - Minecraft Server</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: Poppins & Orbitron -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Pixelated Background Overlay -->
+    <div class="pixel-bg"></div>
+    
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress-bar"></div>
+    
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <img src="images/logo.png" alt="Server Logo" class="server-logo" id="serverLogo">
+                <span class="server-name">mieayamsmp</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#features" class="nav-link">Fitur</a>
+                <a href="#info" class="nav-link">Server</a>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Floating Social Bubbles -->
+    <div class="floating-bubbles">
+        <div class="bubble-toggle" id="bubbleToggle">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+        <div class="bubbles-container" id="bubblesContainer">
+            <a href="#" target="_blank" class="bubble wa" title="WhatsApp Group">
+                <i class="fab fa-whatsapp"></i>
+                <span class="bubble-text">WhatsApp</span>
+            </a>
+            <a href="#" target="_blank" class="bubble discord" title="Discord Server">
+                <i class="fab fa-discord"></i>
+                <span class="bubble-text">Discord</span>
+            </a>
+            <a href="#" target="_blank" class="bubble tiktok" title="TikTok">
+                <i class="fab fa-tiktok"></i>
+                <span class="bubble-text">TikTok</span>
+            </a>
+            <a href="shop.html" class="bubble shop" title="Shop & Rank">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="bubble-text">Shop</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="glow-text">mieayamsmp</h1>
+                    <p class="hero-subtitle">Survival Multiplayer Server dengan 10+ Fitur Unik! 🍜</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary btn-glow" id="playNowBtn">
+                            <i class="fas fa-play"></i> Play Now
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="pixel-cube"></div>
+                    <div class="pixel-cube small"></div>
+                    <div class="pixel-cube tiny"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Server Info Section -->
+        <section id="info" class="server-info">
+            <div class="container">
+                <h2 class="section-title">Server <span class="highlight">Information</span></h2>
+                <div class="info-cards">
+                    <!-- IP Card -->
+                    <div class="info-card">
+                        <div class="card-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h3>Server IP</h3>
+                        <p class="info-detail" id="serverIP">play.mieayamsmp.xyz</p>
+                        <button class="btn btn-secondary copy-btn" data-copy="play.mieayamsmp.xyz">
+                            <i class="fas fa-copy"></i> Copy IP
+                        </button>
+                    </div>
+                    
+                    <!-- Port Card -->
+                    <div class="info-card">
+                        <div class="card-icon">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <h3>Port</h3>
+                        <p class="info-detail" id="serverPort">19132</p>
+                        <button class="btn btn-secondary copy-btn" data-copy="19132">
+                            <i class="fas fa-copy"></i> Copy Port
+                        </button>
+                    </div>
+                    
+                    <!-- Status Card -->
+                    <div class="info-card status-card">
+                        <div class="card-icon">
+                            <i class="fas fa-signal"></i>
+                        </div>
+                        <h3>Server Status</h3>
+                        <div class="status-display">
+                            <span class="status-badge online" id="serverStatus">
+                                <i class="fas fa-circle"></i> Online
+                            </span>
+                        </div>
+                        <div class="player-count">
+                            <i class="fas fa-users"></i>
+                            <span id="playerCount">0</span>/<span id="maxCount">1000</span>
+                        </div>
+                        <div class="community-count">
+                            <i class="fas fa-globe"></i> Community: <span id="communityCount">100+</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <div class="container">
+                <h2 class="section-title">Server <span class="highlight">Features</span></h2>
+                <div class="features-grid">
+                    <!-- Feature 1: Economy -->
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <h3>Economy</h3>
+                        <p>Sistem ekonomi lengkap dengan mata uang "MieCoin".</p>
+                      
+                        <div class="pixel-corner"></div>
+                    </div>
+                    
+                    <!-- Feature 2: Claim Land -->
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <h3>Claim Land</h3>
+                        <p>Lindungi area bangunanmu dengan sistem claim mudah.</p>
+                        <div class="pixel-corner"></div>
+                    </div>
+                    
+                    <!-- Feature 3: Team -->
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Team System</h3>
+                        <p>Buat team, share base, dan kerja sama dengan teman.</p>
+                        <div class="pixel-corner"></div>
+                    </div>
+                    
+                    <!-- Feature 4: Bounty -->
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3>Bounty</h3>
+                        <p>Pasang bounty pada pemain dan dapatkan hadiah.</p>
+                       
+                        <div class="pixel-corner"></div>
+                    </div>
+                    
+                    <!-- Feature 5: Custom Enchant -->
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <h3>Custom Enchant</h3>
+                        <p>30+ enchant unik seperti Teleport, Explosive, dll.</p>
+                        
+                        <div class="pixel-corner"></div>
+                    </div>
+                    
+                    <!-- Feature 6: Gacha -->
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <h3>Gacha System</h3>
+                        <p>Roll gacha untuk dapatkan item langka dan rank.</p>
+                        
+                        <div class="pixel-corner"></div>
+                    </div>
+                    
+                    <!-- Feature 7: PvP Arena -->
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-fist-raised"></i>
+                        </div>
+                        <h3>PvP Arena</h3>
+                        <p>Arena PvP 1v1, 2v2, dan FFA dengan leaderboard.</p>
+                        
+                        <div class="pixel-corner"></div>
+                    </div>
+                    
+                    <!-- Feature 8: AFK Arena -->
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>AFK Arena</h3>
+                        <p>Dapatkan reward hanya dengan AFK di arena khusus.</p>
+                        <div class="pixel-corner"></div>
+                    </div>
+                    
+                    <!-- Feature 9: Coinflip -->
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <h3>Coinflip</h3>
+                        <p>Gacha 50/50, lipat gandakan coin atau hilang.</p>
+                        
+                        <div class="pixel-corner"></div>
+                    </div>
+                    
+                    <!-- Feature 10: Skill Tree -->
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                        <h3>Skill System</h3>
+                        <p>Upgrade skill mining, farming, combat, dll.</p>
+                        
+                        <div class="pixel-corner"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/logo.png" alt="Server Logo" class="server-logo small">
+                    <span>mieayamsmp</span>
+                </div>
+                <p class="copyright">&copy; 2026 mieayamsmp.</p>
+                <div class="footer-contact">
+                    <a href="#" target="_blank" class="social-circle whatsapp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" target="_blank" class="social-circle discord"><i class="fab fa-discord"></i></a>
+                    <a href="#" target="_blank" class="social-circle tiktok"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Toast Notification -->
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Copied to clipboard!</span>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
