@@ -5,7 +5,7 @@
 
 // ===== CONFIGURATION =====
 const CONFIG = {
-    serverIP: 'mieayamsmp.xyz',
+    serverIP: 'mieayam.biz.id',
     serverPort: '19183',
     logoURL: './logo.jpg',
     whatsappLink: 'https://chat.whatsapp.com/Lu8XeNEyMd43AorpEolXYc?mode=gi_t',
